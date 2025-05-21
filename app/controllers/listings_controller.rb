@@ -1,9 +1,10 @@
 class ListingsController < ApplicationController
-  
+  skip_before_action :authenticate_user!, only: :index
+
   def index
     @listings = Listing.all
   end
-  
+
   def new
     @listing = Listing.new
   end
@@ -20,6 +21,6 @@ class ListingsController < ApplicationController
   private
 
   def listing_params
-    params.require(:listing).permit(:name, :location, :description, :price, :number_guests, :user)
+    params.require(:listing).permit(:name, :location, :description, :price, :number_guests, :user_id)
   end
 end
